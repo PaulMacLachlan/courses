@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Add a student to all bootcamp courses</title>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        </style>
+    </head>
+    <body>
+        <!-- {{request.session.course_name}} -->
+        <h1>Add a new course</h1>
+        <form class="" action="create" method="post">
+            {% csrf_token %}
+            Name:<input type="text" name="course_name" placeholder="Course name">
+            <br>
+            Description: <br> <textarea name="description" rows="8" cols="80" placeholder="Please describe your course"></textarea>
+            <br>
+            <input type="submit" name="submit" value="Add">
+        </form>
+        <h1>Course Information</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ descriptions.descriptions }}</td>
+                    <td>{{ course.created_at }}</td>
+                    <td> <a href="/course/{{course.pk}}/destroy">remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
